@@ -6,62 +6,90 @@
         <title>CHIP-8 Emulator</title>
         <link rel="stylesheet" href="style.css">
     </head>
-    <body>
-        <div>
-            <p>--===|  CHIP-8 Emulator  |===--</p>
-        </div>
-        <div>
-            <canvas id="canvas1"></canvas>
-        </div>
-        <div>
-            <input type="file" id="load" />
-            <button id="halt">Halt</button>
-            <button id="run">Run</button>
-            <button id="step">Step</button>
-        </div>
-        <div>
-            <p>Registers:</p>
-            <p id="registers1">PC:0000  I:00  DT:00  ST:00</p>
-            <p id="registers2">V0:00  V1:00  V2:00  V3:00  V4:00  V5:00  V6:00  V7:00</p>
-            <p id="registers3">V8:00  V9:00  VA:00  VB:00  VC:00  VD:00  VE:00  VF:00</p>
-        </div>
-        <div>
-            <p>Memory:</p>
-            <p id="memory0"></p>
-            <p id="memory1"></p>
-            <p id="memory2"></p>
-            <p id="memory3"></p>
-            <p id="memory4"></p>
-            <p id="memory5"></p>
-            <p id="memory6"></p>
-            <p id="memory7"></p>
-            <p id="memory8"></p>
-            <p id="memory9"></p>
-            <p id="memory10"></p>
-            <p id="memory11"></p>
-            <p id="memory12"></p>
-            <p id="memory13"></p>
-            <p id="memory14"></p>
-            <p id="memory15"></p>
-        </div>
-        <div>
-            <p>Stack:</p>
-            <p id="stack0"></p>
-            <p id="stack1"></p>
-            <p id="stack2"></p>
-            <p id="stack3"></p>
-            <p id="stack4"></p>
-            <p id="stack5"></p>
-            <p id="stack6"></p>
-            <p id="stack7"></p>
-            <p id="stack8"></p>
-            <p id="stack9"></p>
-            <p id="stack10"></p>
-            <p id="stack11"></p>
-            <p id="stack12"></p>
-            <p id="stack13"></p>
-            <p id="stack14"></p>
-            <p id="stack15"></p>
+    <body class="light">
+        <div id="emulator">
+            <button id="mode" onmouseover="fillIcon(this, true)" onmouseout="fillIcon(this, false)" 
+                onclick="changeMode(this)" class="btn btn-primary shadow"><i></i></button>
+
+            <h2 id="title">--===|  CHIP-8 Emulator  |===--</h2>
+            <div id="canvas-container">
+                <div id="canvas-section">
+                    <canvas id="canvas1"></canvas>
+                    <div id="colorpickerdiv" class="hidden">
+                        <p class="separator">Color Picker</p>
+
+                        <label class="separator">Canvas Color: </label>
+                        <input id="canvas-color" type="color" class="form-control form-control-color" onchange="updateCanvas()" />
+
+                        <hr class="separator"/>
+
+                        <label class="separator">Text Color: </label>
+                        <input id="text-color" type="color" class="form-control form-control-color" onchange="updateCanvas()" />
+                    </div>
+                </div>
+                <input type="file" id="load" class="form-control"/>
+                <button id="halt" class="btn btn-primary">Halt</button>
+                <button id="run" class="btn btn-primary">Run</button>
+                <button id="step" class="btn btn-primary">Step</button>
+                <button id="color-picker" onmouseover="fillIcon(this, true)" onmouseout="fillIcon(this, false)" onclick="toggleColor()" class="btn btn-danger">
+                    <i class="bi bi-palette"></i> CANVAS
+                </button>
+            </div>
+
+
+    
+            <div id="variables">
+                <div id="registers" class="rounded">
+                    <p>Registers:</p>
+                    <div id="registers-grid">
+                        <div id="left-grid">
+                            <p id="registers2" class="separator">V0:00  V1:00  V2:00  V3:00  V4:00  V5:00  V6:00  V7:00</p>
+                            <p id="registers3">V8:00  V9:00  VA:00  VB:00  VC:00  VD:00  VE:00  VF:00</p>
+                        </div>
+                        <p id="registers1" class="separator">PC:0000  I:00  DT:00  ST:00</p>
+                    </div>
+                </div>
+                <div id="memory" class="rounded">
+                    <p>Memory:</p>
+                    <div id="memory-grid" class="separator">
+                        <p id="memory0"></p>
+                        <p id="memory1"></p>
+                        <p id="memory2"></p>
+                        <p id="memory3"></p>
+                        <p id="memory4"></p>
+                        <p id="memory5"></p>
+                        <p id="memory6"></p>
+                        <p id="memory7"></p>
+                        <p id="memory8"></p>
+                        <p id="memory9"></p>
+                        <p id="memory10"></p>
+                        <p id="memory11"></p>
+                        <p id="memory12"></p>
+                        <p id="memory13"></p>
+                        <p id="memory14"></p>
+                        <p id="memory15"></p>
+                    </div>
+                </div>
+                <div id="stack" class="rounded">
+                    <p>Stack:</p>
+                    <p id="stack0" class="separator"></p>
+                    <p id="stack1"></p>
+                    <p id="stack2"></p>
+                    <p id="stack3"></p>
+                    <p id="stack4"></p>
+                    <p id="stack5"></p>
+                    <p id="stack6"></p>
+                    <p id="stack7"></p>
+                    <p id="stack8"></p>
+                    <p id="stack9"></p>
+                    <p id="stack10"></p>
+                    <p id="stack11"></p>
+                    <p id="stack12"></p>
+                    <p id="stack13"></p>
+                    <p id="stack14"></p>
+                    <p id="stack15"></p>
+                </div>
+            </div>
         </div>
         
         <script src="display.js"></script>

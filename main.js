@@ -8,8 +8,45 @@ var g_nextTime;
 var g_display = new Display(g_canvas);
 var g_cpu = new CPU(g_display);
 
+let onNewRun = false;
 
+document.getElementById("mode").children[0].className = localStorage.getItem("theme") === "light" ? "bi bi-moon-stars" : "bi bi-lightning";
 
+localStorage.getItem("canvas-color") ? null : localStorage.setItem("canvas-color", "#00008b");
+localStorage.getItem("text-color") ? null : localStorage.setItem("text-color", "#fff");
+
+localStorage.getItem("theme") ? null : localStorage.setItem("theme", "light");
+
+document.getElementById("canvas-color").value = localStorage.getItem("canvas-color");
+document.getElementById("text-color").value = localStorage.getItem("text-color");
+
+document.body.className = localStorage.getItem("theme");
+
+function fillIcon(e, fillCondition) {
+    const includesFill = e.children[0].className.includes("-fill");
+    if (fillCondition && !includesFill) {
+        e.children[0].className += "-fill";
+    } else if (includesFill) {
+        e.children[0].className = e.children[0].className.slice(0, -5);
+    }
+}
+
+function changeMode(e) {
+    e.children[0].classList.toggle("bi-moon-stars-fill");
+    e.children[0].classList.toggle("bi-lightning-fill");
+    localStorage.setItem("theme", localStorage.getItem("theme") === "light" ? "dark" : "light");
+    document.body.className = localStorage.getItem("theme");
+}
+
+function toggleColor() {
+    document.getElementById("colorpickerdiv").classList.toggle("hidden");
+}
+
+function updateCanvas() {
+    localStorage.setItem("canvas-color", document.getElementById("canvas-color").value);
+    localStorage.setItem("text-color", document.getElementById("text-color").value);
+    g_display.update();
+}
 
 // init variables for the main loop
 
@@ -127,6 +164,8 @@ function onLoad()
     };
     
     reader.readAsArrayBuffer(file);
+
+    onNewRun = true;
 }
 
 
@@ -138,12 +177,16 @@ function onHalt()
 
 function onRun()
 {
+    onNewRun ? g_display.reset() : null;
+    onNewRun = false;
     g_cpu.state = STATE_RUN;
 }
 
 
 function onStep()
 {
+    onNewRun ? g_display.reset() : null;
+    onNewRun = false;
     g_cpu.state = STATE_STEP;
 }
 

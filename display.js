@@ -48,14 +48,14 @@ class Display
     {
         this.canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
     
-        this.canvasContext.fillStyle = 'darkblue';//'darkgreen';
+        this.canvasContext.fillStyle = localStorage.getItem("canvas-color");
         this.canvasContext.fillRect(0, 0, this.canvas.width, this.canvas.height);
         
         for(let j = 0; j < DISPLAY_PIXELHEIGHT; ++j)
         {
             for(let i = 0; i < DISPLAY_PIXELWIDTH; ++i)
             {
-                this.canvasContext.fillStyle = 'deepskyblue';//'limegreen';
+                this.canvasContext.fillStyle = localStorage.getItem("text-color");
                 
                 if(this.getPixel(i, j))
                     this.canvasContext.fillRect(i * 10, j * 10, 9, 9);
