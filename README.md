@@ -1,0 +1,1 @@
+This is a quick-and-dirty CHIP-8 emulator that I made with my nephew for the purpose of helping him to learn assembly language.  You can run it right out of this repo using this link https://html-preview.github.io/?url=https://github.com/clatham/chip8emulator/blob/master/index.html.
